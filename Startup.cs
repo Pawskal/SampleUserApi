@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Http;
 using Swashbuckle.AspNetCore.Swagger;
+using DotNetServer.Services;
 
 namespace DotNetServer
 {
@@ -29,6 +30,9 @@ namespace DotNetServer
             services.AddSwaggerGen((config) => {
                 config.SwaggerDoc("v1", new Info { Title = "My Auth App", Version = "v1" });
             });
+            services.AddTransient<FakeUserGenerator>();
+            services.AddSingleton<UserStore>();
+            services.AddTransient<IUserService, UserLocalService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,10 +50,6 @@ namespace DotNetServer
             });
 
             app.UseMvc();
-
-            // app.Run(async (context) => {
-            //     await context.Response.WriteAsync("Hello Nikiton");
-            // });
         }
     }
 }

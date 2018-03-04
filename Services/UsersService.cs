@@ -5,13 +5,17 @@ namespace DotNetServer.Services
 {
     public class UserLocalService : IUserService
     {
-        public List<UserModel> List { get; private set; }
+        public List<User> List { get; }
+        
+        public UserLocalService(UserStore store) {
+            List = store.List;
+        }
 
-        public UserModel Find(int id)
+        public User Find(int id)
         {
             return List.Find((user) => user.ID == id);
         }
-        public UserModel Create(UserModel user)
+        public User Create(User user)
         {
             List.Add(user);
             return user;
@@ -23,9 +27,9 @@ namespace DotNetServer.Services
             return success ? id : 0;
         }
 
-        public UserModel Update(UserModel user)
+        public User Update(User user)
         {
-            UserModel _user = this.Find(user.ID);
+            User _user = this.Find(user.ID);
             int index = List.IndexOf(_user);
             List.RemoveAt(index);
             List.Insert(index, _user);

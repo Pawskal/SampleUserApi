@@ -1,4 +1,4 @@
-namespace DotNetServer.Controllers
+namespace SampleUserApi.Controllers
 {
     public class UsersController
     {

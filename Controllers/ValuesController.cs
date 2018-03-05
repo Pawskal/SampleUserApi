@@ -3,24 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using DotNetServer.Services;
-using DotNetServer.Models;
+using SampleUserApi.Services;
+using SampleUserApi.Models;
 
-namespace DotNetServer.Controllers
+namespace SampleUserApi.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        private IUserService _service;
-        public ValuesController(IUserService service){
+        private UserService _service;
+        public ValuesController(UserService service){
             _service = service;
         }
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<User> Get()
-        {
-            return _service.List;
+        public async Task<IEnumerable<User>> Get(){
+            return await _service.GetList();
         }
 
         // GET api/values/5

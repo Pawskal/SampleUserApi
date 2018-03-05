@@ -10,6 +10,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0-preview1-final"/>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.2.0"/>
     <PackageReference Include="Bogus" Version="22.0.5"/>
+    <PackageReference Include="MongoDB.Driver" Version="2.5.0"/>
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2"/>

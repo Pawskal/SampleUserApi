@@ -1,11 +1,14 @@
-using System;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
-namespace DotNetServer.Models
+namespace SampleUserApi.Models
 {
     public class User
     {
-        public string Name { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string _id { get; set; }
+        public string ID {get; set;}
+        public string UserName { get; set; }
         public string Email { get; set; }
-        public int ID { get; set; }
     }
 }

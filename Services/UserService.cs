@@ -12,18 +12,11 @@ namespace SampleUserApi.Services
             this.provider = provider;
         }
 
-        public async Task<List<User>> GetList()
-        {
-            Console.WriteLine("in service");
-            var list = await provider.GetList();
-            Console.WriteLine("out service");
-            return list;
-        }
+        public async Task<List<User>> GetList() =>
+            await provider.GetList();
 
-        public Task<User> Find(string id)
-        {
-            throw new System.NotImplementedException();
-        }
+        public async Task<User> Find(string id) => 
+            await provider.Find(id);
 
         public Task Create(User T)
         {

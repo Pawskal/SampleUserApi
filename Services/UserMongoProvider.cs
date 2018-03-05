@@ -11,11 +11,16 @@ namespace SampleUserApi.Services
     {
 
         public UserMongoProvider(FakeUserService fakeUserService) : base("users"){
-
-            this.List.InsertOne(fakeUserService.fakeUser.Generate());
+            // this.List.InsertOne(fakeUserService.fakeUser.Generate());
         }
 
-        public Task Create(User T)
+        public async Task<User> Find(string id) =>
+            await this.List.Find(new BsonDocument("_id", new ObjectId(id))).FirstOrDefaultAsync();
+
+        public async Task<List<User>> GetList() => 
+            await this.List.Find(new FilterDefinitionBuilder<User>().Empty).ToListAsync();
+
+        public Task Create(User user)
         {
             throw new NotImplementedException();
         }
@@ -23,18 +28,6 @@ namespace SampleUserApi.Services
         public Task Delete(string id)
         {
             throw new NotImplementedException();
-        }
-
-        public Task<User> Find(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<User>> GetList()
-        {
-            Console.WriteLine("in provide");
-
-            return await this.List.Find(new FilterDefinitionBuilder<User>().Empty).ToListAsync();
         }
 
         public Task Update(User T)

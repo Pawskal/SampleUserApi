@@ -10,9 +10,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Http;
 using Swashbuckle.AspNetCore.Swagger;
-using DotNetServer.Services;
+using SampleUserApi.Services;
 
-namespace DotNetServer
+namespace SampleUserApi
 {
     public class Startup
     {
@@ -26,13 +26,15 @@ namespace DotNetServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<FakeUserService>();
+            services.AddScoped<IUserProvider, UserMongoProvider>();
+            services.AddTransient<UserService>();
+            
             services.AddMvc();
             services.AddSwaggerGen((config) => {
                 config.SwaggerDoc("v1", new Info { Title = "My Auth App", Version = "v1" });
             });
-            services.AddTransient<FakeUserGenerator>();
-            services.AddSingleton<UserStore>();
-            services.AddTransient<IUserService, UserLocalService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
